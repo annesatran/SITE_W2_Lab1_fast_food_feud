@@ -44,8 +44,7 @@ export function App() {
       return appInfo.instructions.noSelectedItem;
     } else {
       return appInfo.instructions.allSelected
-    }
-      }
+    }}
 
   return (
     <main className="App">
@@ -58,6 +57,7 @@ export function App() {
               key={category}
               label={category}
               onClick = {() => setActiveCategory(category)}
+              onClose = {() => setActiveCategory(null)}
               isActive={category == activeCategory}
             />
           ))}
@@ -81,6 +81,7 @@ export function App() {
               key={restaurant}
               label={restaurant}
               onClick = {() => setActiveRestaurant(restaurant)}
+              onClose = {() => setActiveRestaurant(null)}
               isActive={restaurant == activeRestaurant}
             />
             ))}
@@ -101,6 +102,7 @@ export function App() {
               key={menuItem.item_name}
               label={menuItem.item_name}
               onClick = {() => setActiveMenu(menuItem)}
+              onClose = {() => setActiveMenu(null)}
               isActive={menuItem == activeMenu}
             />
             ))}
