@@ -7,6 +7,8 @@ import { NutritionalLabel } from "/src/components/NutritionalLabel/NutritionalLa
 import { createDataSet } from "./data/dataset"
 import "./App.css"
 
+import { CategoriesColumn } from "/src/components/CategoriesColumn/CategoriesColumn.jsx"
+
 // don't move this!
 export const appInfo = {
   title: `Fast Food Feud 🍔!`,
@@ -29,6 +31,8 @@ export function App() {
   const [activeRestaurant, setActiveRestaurant] = React.useState(null)
   const [activeMenu, setActiveMenu] = React.useState(null)
 
+  console.log("active category", activeCategory)
+
   let currentMenuItems = data.filter((dataItem) => {
     return dataItem.food_category == activeCategory && dataItem.restaurant == activeRestaurant
   })
@@ -49,20 +53,11 @@ export function App() {
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
-      <div className="CategoriesColumn col">
-        <div className="categories options">
-          <h2 className="title">Categories</h2>
-          {categories.map(category => (
-            <Chip
-              key={category}
-              label={category}
-              onClick = {() => setActiveCategory(category)}
-              onClose = {() => setActiveCategory(null)}
-              isActive={category == activeCategory}
-            />
-          ))}
-        </div>
-      </div>
+      <CategoriesColumn
+        categoriesProp={categories}
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+         />
 
       {/* MAIN COLUMN */}
       <div className="container">
