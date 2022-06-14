@@ -27,11 +27,25 @@ const { data, categories, restaurants } = createDataSet()
 export function App() {
   const [activeCategory, setActiveCategory] = React.useState(null)
   const [activeRestaurant, setActiveRestaurant] = React.useState(null)
-  const [activeMenu, setActiveMenu] = React.useState(null) 
+  const [activeMenu, setActiveMenu] = React.useState(null)
 
   let currentMenuItems = data.filter((dataItem) => {
     return dataItem.food_category == activeCategory && dataItem.restaurant == activeRestaurant
   })
+
+  function getInstruction (){
+    if (!(activeCategory || activeRestaurant || activeMenu)) {
+      return appInfo.instructions.start;
+    } else if (activeCategory && !(activeRestaurant || activeMenu)) {
+      return appInfo.instructions.onlyCategory;
+    } else if (activeRestaurant && !(activeCategory || activeMenu)) {
+      return appInfo.instructions.onlyRestaurant;
+    } else if (!(activeMenu) && (activeCategory && activeRestaurant)) {
+      return appInfo.instructions.noSelectedItem;
+    } else {
+      return appInfo.instructions.allSelected
+    }
+      }
 
   return (
     <main className="App">
@@ -43,12 +57,7 @@ export function App() {
             <Chip
               key={category}
               label={category}
-              onClick = {() => {
-                if (category == activeCategory) {
-                  setActiveCategory(null);
-                } else {
-                  setActiveCategory(category);
-                }}}
+              onClick = {() => setActiveCategory(category)}
               isActive={category == activeCategory}
             />
           ))}
@@ -71,12 +80,7 @@ export function App() {
             <Chip
               key={restaurant}
               label={restaurant}
-              onClick = {() => {
-                if (restaurant == activeRestaurant) {
-                  setActiveRestaurant(null);
-                } else {
-                  setActiveRestaurant(restaurant);
-                }}}
+              onClick = {() => setActiveRestaurant(restaurant)}
               isActive={restaurant == activeRestaurant}
             />
             ))}
@@ -85,7 +89,7 @@ export function App() {
 
         {/* INSTRUCTIONS GO HERE */}
         <Instructions
-          instructions={appInfo.instructions.start}
+          instructions={getInstruction()}
         />
 
         {/* MENU DISPLAY */}
@@ -96,12 +100,7 @@ export function App() {
             <Chip 
               key={menuItem.item_name}
               label={menuItem.item_name}
-              onClick = {() => {
-                if (activeMenu && menuItem.item_name == activeMenu.item_name) {
-                  setActiveMenu(null);
-                } else {
-                  setActiveMenu(menuItem);
-                }}}
+              onClick = {() => setActiveMenu(menuItem)}
               isActive={menuItem == activeMenu}
             />
             ))}
