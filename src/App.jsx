@@ -8,6 +8,7 @@ import { createDataSet } from "./data/dataset"
 import "./App.css"
 
 import { CategoriesColumn } from "/src/components/CategoriesColumn/CategoriesColumn.jsx"
+import { RestaurantsRow } from "/src/components/RestaurantsRow/RestaurantsRow.jsx"
 
 // don't move this!
 export const appInfo = {
@@ -31,7 +32,7 @@ export function App() {
   const [activeRestaurant, setActiveRestaurant] = React.useState(null)
   const [activeMenu, setActiveMenu] = React.useState(null)
 
-  console.log("active category", activeCategory)
+  console.log("active category", activeRestaurant)
 
   let currentMenuItems = data.filter((dataItem) => {
     return dataItem.food_category == activeCategory && dataItem.restaurant == activeRestaurant
@@ -68,20 +69,11 @@ export function App() {
         />
 
         {/* RESTAURANTS ROW */}
-        <div className="RestaurantsRow">
-          <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">
-            {restaurants.map((restaurant) => (
-            <Chip
-              key={restaurant}
-              label={restaurant}
-              onClick = {() => setActiveRestaurant(restaurant)}
-              onClose = {() => setActiveRestaurant(null)}
-              isActive={restaurant == activeRestaurant}
-            />
-            ))}
-          </div>
-        </div>
+        <RestaurantsRow
+          restaurantsProp={restaurants}
+          activeRestaurant={activeRestaurant}
+          setActiveRestaurant={setActiveRestaurant}
+        />
 
         {/* INSTRUCTIONS GO HERE */}
         <Instructions
