@@ -9,6 +9,7 @@ import "./App.css"
 
 import { CategoriesColumn } from "/src/components/CategoriesColumn/CategoriesColumn.jsx"
 import { RestaurantsRow } from "/src/components/RestaurantsRow/RestaurantsRow.jsx"
+import { MenuDisplay } from "/src/components/MenuDisplay/MenuDisplay.jsx"
 
 // don't move this!
 export const appInfo = {
@@ -81,25 +82,11 @@ export function App() {
         />
 
         {/* MENU DISPLAY */}
-        <div className="MenuDisplay display">
-          <div className="MenuItemButtons menu-items">
-            <h2 className="title">Menu Items</h2>
-            {currentMenuItems.map((menuItem) => (
-            <Chip 
-              key={menuItem.item_name}
-              label={menuItem.item_name}
-              onClick = {() => setActiveMenu(menuItem)}
-              onClose = {() => setActiveMenu(null)}
-              isActive={menuItem == activeMenu}
-            />
-            ))}
-          </div>
-
-          {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">
-            { activeMenu ? <NutritionalLabel item={activeMenu}/> : null}
-          </div>
-        </div>
+        <MenuDisplay
+          currentMenuItems={currentMenuItems}
+          activeMenu={activeMenu}
+          setActiveMenu={setActiveMenu} 
+        />
 
         <div className="data-sources">
           <p>{appInfo.dataSource}</p>
