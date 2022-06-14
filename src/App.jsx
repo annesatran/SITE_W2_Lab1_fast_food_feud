@@ -1,15 +1,14 @@
 import * as React from "react"
 // IMPORT ANY NEEDED COMPONENTS HERE
-import { Header } from "/src/components/Header/Header.jsx"
-import { Instructions } from "/src/components/Instructions/Instructions.jsx"
-import { Chip } from "/src/components/Chip/Chip.jsx"
-import { NutritionalLabel } from "/src/components/NutritionalLabel/NutritionalLabel.jsx"
+import { Header } from "./components/Header/Header.jsx"
+import { Instructions } from "./components/Instructions/Instructions.jsx"
 import { createDataSet } from "./data/dataset"
 import "./App.css"
 
-import { CategoriesColumn } from "/src/components/CategoriesColumn/CategoriesColumn.jsx"
-import { RestaurantsRow } from "/src/components/RestaurantsRow/RestaurantsRow.jsx"
-import { MenuDisplay } from "/src/components/MenuDisplay/MenuDisplay.jsx"
+import { CategoriesColumn } from "./components/CategoriesColumn/CategoriesColumn.jsx"
+import { RestaurantsRow } from "./components/RestaurantsRow/RestaurantsRow.jsx"
+import { MenuDisplay } from "./components/MenuDisplay/MenuDisplay.jsx"
+import { DataSource } from "/src/components/DataSource/DataSource.jsx"
 
 // don't move this!
 export const appInfo = {
@@ -32,8 +31,6 @@ export function App() {
   const [activeCategory, setActiveCategory] = React.useState(null)
   const [activeRestaurant, setActiveRestaurant] = React.useState(null)
   const [activeMenu, setActiveMenu] = React.useState(null)
-
-  console.log("active category", activeRestaurant)
 
   let currentMenuItems = data.filter((dataItem) => {
     return dataItem.food_category == activeCategory && dataItem.restaurant == activeRestaurant
@@ -88,9 +85,9 @@ export function App() {
           setActiveMenu={setActiveMenu} 
         />
 
-        <div className="data-sources">
-          <p>{appInfo.dataSource}</p>
-        </div>
+        <DataSource
+          text={appInfo.dataSource}
+        />
       </div>
     </main>
   )

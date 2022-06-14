@@ -8,9 +8,9 @@ export function MenuDisplay(props) {
     <div className="MenuDisplay display">
       <div className="MenuItemButtons menu-items">
         <h2 className="title">Menu Items</h2>
-        {props.currentMenuItems.map((menuItem) => (
+        {props.currentMenuItems.map((menuItem, index) => (
         <Chip 
-          key={menuItem.item_name}
+          key={menuItem.item_name + index}
           label={menuItem.item_name}
           onClick = {() => props.setActiveMenu(menuItem)}
           onClose = {() => props.setActiveMenu(null)}
